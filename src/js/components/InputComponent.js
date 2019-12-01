@@ -12,7 +12,7 @@ export default class InputComponent extends React.Component
             this.state = {
                 current_selected_Method: "depth",
                 current_temp_input_matrix: [],
-                current_max_nodes_for_analyse: 10000,
+                current_max_nodes_for_analyse: 100000,
                 available_values: [
                     [1, 2, 3],
                     [4, 0, 5],
@@ -141,7 +141,7 @@ export default class InputComponent extends React.Component
                                 type={"text"}
                                 placeholder={"максимальное число узлов для анализа"}
                                 title={"максимальное число узлов для анализа"}
-                                defaultValue={1000000}
+                                defaultValue={100000}
                                 onChange={(event) => {this.handle_change_current_max_nodes_for_analyse(event.target.value)}}
                             />
                             <button

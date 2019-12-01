@@ -76,8 +76,23 @@ export default class InputComponent extends React.Component
         if (this.state.current_temp_input_matrix.length < 9) {
             alert("Задана не вся матрица!");
         } else {
-            this.props.handle_start(this.state.current_selected_Method, this.state.current_temp_input_matrix);
+            let ValidateMatrix = this.validate_matrix(this.state.current_temp_input_matrix);
+            this.props.handle_start(this.state.current_selected_Method, ValidateMatrix);
         }
+    }
+
+    validate_matrix(input_array)
+    {
+        let NewArray = [[],[],[]];
+        let y = 0;
+        for (let i = 0; i < 9; i++)
+        {
+            NewArray[y].push(input_array[i]);
+            if ((i+1)%3 === 0) {
+                y++;
+            }
+        }
+        return NewArray;
     }
 
     render()

@@ -19,6 +19,7 @@ export default class ComputingComponent extends React.Component
             this.ComputingForDepth = new StructureForDepth(
                 this.props.input_matrix,
                 this.props.expected_result,
+                this.props.current_max_nodes_for_analyse,
                 (in_new_step) => {this.update_step(in_new_step)},
                 (in_steps, in_result_tree, in_depth) => {this.props.handle_finish(in_steps, in_result_tree, in_depth)},
             );
@@ -27,6 +28,7 @@ export default class ComputingComponent extends React.Component
             this.ComputingForDepth = new StructureForWidth(
                 this.props.input_matrix,
                 this.props.expected_result,
+                this.props.current_max_nodes_for_analyse,
                 (in_new_step) => {this.update_step(in_new_step)},
                 (in_steps, in_result_tree, in_depth) => {this.props.handle_finish(in_steps, in_result_tree, in_depth)},
             );

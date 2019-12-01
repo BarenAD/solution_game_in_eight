@@ -22,10 +22,11 @@ export default class MainComponent extends React.Component
         // };
     }
 
-    handle_continue(in_selected_method, in_current_matrix)
+    handle_continue(in_selected_method, current_max_nodes_for_analyse, in_current_matrix)
     {
         this.setState({
             current_page: "selected_result_page",
+            current_max_nodes_for_analyse: current_max_nodes_for_analyse,
             method: in_selected_method,
             input_matrix: in_current_matrix
         });
@@ -57,7 +58,7 @@ export default class MainComponent extends React.Component
                 {this.state.current_page === "start_page" &&
                     <InputComponent
                         page = {this.state.current_page}
-                        handle_start={(in_selected_method, in_current_matrix) => this.handle_continue(in_selected_method, in_current_matrix)}
+                        handle_start={(in_selected_method, current_max_nodes_for_analyse, in_current_matrix) => this.handle_continue(in_selected_method, current_max_nodes_for_analyse, in_current_matrix)}
                     />
                 }
                 {this.state.current_page === "selected_result_page" &&
@@ -69,6 +70,7 @@ export default class MainComponent extends React.Component
                 {this.state.current_page === "computing_page" &&
                         <ComputingComponent
                             method = {this.state.method}
+                            current_max_nodes_for_analyse = {this.state.current_max_nodes_for_analyse}
                             input_matrix = {this.state.input_matrix}
                             expected_result = {this.state.expected_result}
                             handle_finish = {(in_steps, in_result_tree, in_depth) => {this.handle_finish(in_steps, in_result_tree, in_depth)}}

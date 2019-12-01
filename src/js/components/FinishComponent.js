@@ -11,7 +11,7 @@ export default class FinishComponent extends React.Component {
     {
         let CurrentNode = this.props.computing_tree;
         let ArrayStates = [];
-        while (CurrentNode !== null) {
+        while (CurrentNode !== null && CurrentNode !== "step_restriction") {
             ArrayStates.unshift(CurrentNode.get_state());
             CurrentNode = CurrentNode.get_parent();
         }
@@ -25,6 +25,9 @@ export default class FinishComponent extends React.Component {
         let ArrayResultStates = this.create_result();
         return (
             <div className={"FinishMainContainer"}>
+                {this.props.computing_tree === "step_restriction" &&
+                    <h3 style={{color: "red"}}>Решение не найдено за отведённое количество узлов!</h3>
+                }
                 <h3>Метод:   {this.props.method}</h3>
                 <h3>Узлов создано при анализе:   {this.props.computing_steps}</h3>
                 <h3>Число шагов до искомой комбинации:   {ArrayResultStates.length-1}</h3>

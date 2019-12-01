@@ -12,6 +12,7 @@ export default class InputComponent extends React.Component
             this.state = {
                 current_selected_Method: "depth",
                 current_temp_input_matrix: [],
+                current_max_nodes_for_analyse: 10000,
                 available_values: [
                     [1, 2, 3],
                     [4, 0, 5],
@@ -53,6 +54,11 @@ export default class InputComponent extends React.Component
         this.setState({current_selected_Method: in_Method});
     }
 
+    handle_change_current_max_nodes_for_analyse(new_value)
+    {
+        this.setState({current_max_nodes_for_analyse: new_value});
+    }
+
     return_metods()
     {
         let ClassName1 = "Method";
@@ -89,7 +95,7 @@ export default class InputComponent extends React.Component
         } else {
             let ValidateMatrix = this.validate_matrix(this.state.current_temp_input_matrix);
             if (this.props.page === "start_page") {
-                this.props.handle_start(this.state.current_selected_Method, ValidateMatrix);
+                this.props.handle_start(this.state.current_selected_Method, parseInt(this.state.current_max_nodes_for_analyse), ValidateMatrix);
             } else if (this.props.page === "selected_result_page") {
                 this.props.handle_start(ValidateMatrix);
             }
@@ -130,6 +136,14 @@ export default class InputComponent extends React.Component
                         <div className={"InsideSecondaryContainer"}>
                             <h2>Выберите метод поиска!</h2>
                             {this.return_metods()}
+                            <input
+                                className={"InputMaxNodesForAnalyse"}
+                                type={"text"}
+                                placeholder={"максимальное число узлов для анализа"}
+                                title={"максимальное число узлов для анализа"}
+                                defaultValue={1000000}
+                                onChange={(event) => {this.handle_change_current_max_nodes_for_analyse(event.target.value)}}
+                            />
                             <button
                                 className={"StartButton"}
                                 onClick={() => {

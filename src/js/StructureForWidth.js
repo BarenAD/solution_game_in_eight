@@ -5,10 +5,11 @@ import check_states_on_identity from "./CheckStatesOnIdentity";
 
 export default class StructureForWidth
 {
-    constructor(in_start_state, in_expected_result, function_update_steps, function_finish) {
+    constructor(in_start_state, in_expected_result, current_max_nodes_for_analyse, function_update_steps, function_finish) {
         this.function_update_steps = function_update_steps;
         this.function_finish = function_finish;
         this.expected_result = in_expected_result;
+        this.current_max_nodes_for_analyse = current_max_nodes_for_analyse;
         let ItIsOk = true;
         let HeightMatrix = in_start_state.length;
         for (let i = 0; i < HeightMatrix; i++) {
@@ -59,7 +60,7 @@ export default class StructureForWidth
                 NewCurrentArrayNodes.push(Childrens[j]);
             }
         }
-        if (!this.STOP_MACHINE && !this.EMERGENCY_EXIT && this.steps < 10000) {
+        if (!this.STOP_MACHINE && !this.EMERGENCY_EXIT && this.steps < this.current_max_nodes_for_analyse) {
             this.depth++;
             let NewCurrentArrayNodesChildrens = [];
             for (let i = 0; i < NewCurrentArrayNodes.length; i++) {
@@ -80,9 +81,10 @@ export default class StructureForWidth
             }
             this.current_array_nodes = NewCurrentArrayNodes;
             this.function_update_steps(this.steps);
-            setTimeout(() => {this.find_solution()}, 2000,);
-        } else {
-            this.function_finish(this.steps, null, this.depth);
+            setTimeout(() => {this.find_solution()}, 100,);
+        }
+        if(this.steps > this.current_max_nodes_for_analyse){
+            this.function_finish(this.steps, "step_restriction", this.depth);
         }
     }
 }

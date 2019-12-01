@@ -4,11 +4,12 @@ import check_on_repeat_to_up_branch from "./CheckOnRepeatToUpBranch";
 
 export default class StructureForDepth
 {
-    constructor(in_start_state, in_expected_result, function_update_steps, function_finish)
+    constructor(in_start_state, in_expected_result, current_max_nodes_for_analyse, function_update_steps, function_finish)
     {
         this.function_update_steps = function_update_steps;
         this.function_finish = function_finish;
         this.expected_result = in_expected_result;
+        this.current_max_nodes_for_analyse = current_max_nodes_for_analyse;
         let ItIsOk = true;
         let HeightMatrix = in_start_state.length;
         for(let i = 0; i < HeightMatrix; i++) {
@@ -46,7 +47,7 @@ export default class StructureForDepth
     {
         let STOP_MACHINE = false;
         let EMERGENCY_EXIT = false;
-        while (!STOP_MACHINE && this.steps < 10000 && !this.__check_congratulations(this.current.get_state())){
+        while (!STOP_MACHINE && this.steps < this.current_max_nodes_for_analyse && !this.__check_congratulations(this.current.get_state())){
             let amount_ways = this.current.get_amount_childrens();
             if (amount_ways < 1){
                 let NewChildrensStates = StepGenerator(this.current.get_state());
@@ -74,7 +75,9 @@ export default class StructureForDepth
             }
             this.function_update_steps(this.steps);
         }
-        if (EMERGENCY_EXIT) {
+        if(this.steps >= this.current_max_nodes_for_analyse) {
+            this.function_finish(this.steps, "step_restriction", null);
+        } else if (EMERGENCY_EXIT) {
             // console.log("Решение не найдено :[");
             // console.log(this.steps);
             this.function_finish(this.steps, null, null);

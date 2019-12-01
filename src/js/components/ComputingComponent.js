@@ -20,7 +20,7 @@ export default class ComputingComponent extends React.Component
                 this.props.input_matrix,
                 this.props.expected_result,
                 (in_new_step) => {this.update_step(in_new_step)},
-                (in_steps, in_result_tree) => {this.props.handle_finish(in_steps, in_result_tree)},
+                (in_steps, in_result_tree, in_depth) => {this.props.handle_finish(in_steps, in_result_tree, in_depth)},
             );
             setTimeout(() => {this.ComputingForDepth.find_solution()}, 2000,);
         } else if (this.props.method === "width") {
@@ -28,7 +28,7 @@ export default class ComputingComponent extends React.Component
                 this.props.input_matrix,
                 this.props.expected_result,
                 (in_new_step) => {this.update_step(in_new_step)},
-                (in_steps, in_result_tree) => {this.props.handle_finish(in_steps, in_result_tree)},
+                (in_steps, in_result_tree, in_depth) => {this.props.handle_finish(in_steps, in_result_tree, in_depth)},
             );
             setTimeout(() => {this.ComputingForDepth.find_solution()}, 2000,);
         }

@@ -17,8 +17,8 @@ export default class MainComponent extends React.Component
         // this.state = {
         //     current_page: "computing_page",
         //     method: "depth",
-        //     input_matrix: [[1,2,3], [8,6,4],[7,5,0]],
-        //     expected_result: [[1,2,3],[8,0,4],[7,6,5]]
+        //     input_matrix: [[1,4,2], [3,0,5],[6,7,8]],
+        //     expected_result: [[0,1,2],[3,4,5],[6,7,8]]
         // };
     }
 
@@ -39,11 +39,12 @@ export default class MainComponent extends React.Component
         });
     }
 
-    handle_finish(in_steps, in_result_tree)
+    handle_finish(in_steps, in_result_tree, in_depth)
     {
         this.setState({
             current_page: "finish_page",
             computing_steps: in_steps,
+            computing_depth: in_depth,
             computing_tree: in_result_tree
         });
         //console.log(in_steps, in_result_tree);
@@ -70,7 +71,7 @@ export default class MainComponent extends React.Component
                             method = {this.state.method}
                             input_matrix = {this.state.input_matrix}
                             expected_result = {this.state.expected_result}
-                            handle_finish = {(in_steps, in_result_tree) => {this.handle_finish(in_steps, in_result_tree)}}
+                            handle_finish = {(in_steps, in_result_tree, in_depth) => {this.handle_finish(in_steps, in_result_tree, in_depth)}}
                         />
                 }
                 {this.state.current_page === "finish_page" &&
@@ -78,6 +79,7 @@ export default class MainComponent extends React.Component
                         method = {this.state.method}
                         computing_steps = {this.state.computing_steps}
                         computing_tree = {this.state.computing_tree}
+                        computing_depth = {this.state.computing_depth}
                     />
                 }
             </div>

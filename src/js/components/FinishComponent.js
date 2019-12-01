@@ -19,30 +19,54 @@ export default class FinishComponent extends React.Component {
     }
 
     render() {
+        let IDForBoardKey = 0;
+        let IDForRowKey = 0;
+        let IDForValueKey = 0;
+        let ArrayResultStates = this.create_result();
         return (
             <div className={"FinishMainContainer"}>
                 <h3>Метод:   {this.props.method}</h3>
-                <h3>Шагов:   {this.props.computing_steps}</h3>
+                <h3>Узлов создано при анализе:   {this.props.computing_steps}</h3>
+                <h3>Число шагов до искомой комбинации:   {ArrayResultStates.length-1}</h3>
+                {this.props.method === "width" &&
+                    <h3>Глубина: {this.props.computing_depth}</h3>
+                }
                 <div className={"RowStatesResults"}>
-                    {this.create_result().map(state => (
-                        <div className={"StateResultBoard"}>
-                            {state.map(row => (
-                                <div className={"StateResultOneRow"}>
-                                    {row.map(value => {
-                                        let PrintValue = value;
-                                        if (PrintValue === 0){
-                                            PrintValue = "";
-                                        }
-                                        return (
-                                            <div className={"StateResultOneBlock"}>
-                                                {PrintValue}
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            ))}
-                        </div>
-                    ))}
+                    {ArrayResultStates.map(state => {
+                        IDForBoardKey++;
+                        return (
+                            <div
+                                key={"BoardFinishStateID::" + IDForBoardKey}
+                                className={"StateResultBoard"}
+                            >
+                                {state.map(row => {
+                                    IDForRowKey++;
+                                    return (
+                                        <div
+                                            key={"RowFinishStateID::" + IDForRowKey}
+                                            className={"StateResultOneRow"}
+                                        >
+                                            {row.map(value => {
+                                                IDForValueKey++;
+                                                let PrintValue = value;
+                                                if (PrintValue === 0) {
+                                                    PrintValue = "";
+                                                }
+                                                return (
+                                                    <div
+                                                        key={"ValueFinishStateID::" + IDForValueKey}
+                                                        className={"StateResultOneBlock"}
+                                                    >
+                                                        {PrintValue}
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         )

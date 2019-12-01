@@ -1,5 +1,6 @@
 import Node from "./Node";
 import StepGenerator from "./StepGenerator";
+import check_on_repeat_to_up_branch from "./CheckOnRepeatToUpBranch";
 
 export default class StructureForDepth
 {
@@ -21,6 +22,7 @@ export default class StructureForDepth
             this.steps = 0;
             this.current = this.ROOT;
             let ChildrensStates = StepGenerator(in_start_state);
+            this.steps = ChildrensStates.length;
             for(let i = 0; i < ChildrensStates.length; i++) {
                 this.ROOT.add_children(new Node(this.current, ChildrensStates[i]));
             }
@@ -48,7 +50,8 @@ export default class StructureForDepth
             let amount_ways = this.current.get_amount_childrens();
             if (amount_ways < 1){
                 let NewChildrensStates = StepGenerator(this.current.get_state());
-                NewChildrensStates = this.check_on_repeat(NewChildrensStates);
+                this.steps += NewChildrensStates.length;
+                NewChildrensStates = check_on_repeat_to_up_branch(this.current, NewChildrensStates);
                 for(let i = 0; i < NewChildrensStates.length; i++) {
                     this.current.add_children(new Node(this.current, NewChildrensStates[i]));
                 }
@@ -69,79 +72,45 @@ export default class StructureForDepth
                     // this.Find_Solution.push(this.current);
                 }
             }
-            if (this.steps % 10 === 0) {
-                this.function_update_steps(this.steps);
-                this.steps++;
-            } else {
-                this.steps++;
-            }
+            this.function_update_steps(this.steps);
         }
         if (EMERGENCY_EXIT) {
             // console.log("Решение не найдено :[");
             // console.log(this.steps);
-            this.function_finish(this.steps, null);
+            this.function_finish(this.steps, null, null);
             //setTimeout(() => {this.function_finish(this.steps, null)}, 2000,);
         } else {
             // console.log(this.steps);
-            this.function_finish(this.steps, this.current);
+            this.function_finish(this.steps, this.current, null);
             //setTimeout(() => {this.function_finish(this.steps, this.current)}, 2000,);
         }
     }
 
-    check_on_repeat(array_states)
-    {
-        let GoUp = this.current.get_parent();
-        let EMERGENCY_EXIT = false;
-        //let InsideArrayStates = create_copy_array_states(array_states, 3);
-        let InsideArrayStates = array_states;
-        while(GoUp !== null && !EMERGENCY_EXIT){
-            let GoUpState = GoUp.get_state();
-            let IdentitytesIndexs = [];
-            for(let i = 0; i < InsideArrayStates.length; i++){
-                if (this.check_states_on_identity(GoUpState, InsideArrayStates[i])){
-                    IdentitytesIndexs.push(i);
-                }
-            }
-            if (IdentitytesIndexs.length > 0) {
-                let NewArray = [];
-                for(let i = 0; i < InsideArrayStates.length; i++){
-                    if (IdentitytesIndexs.find(index => index === i) === undefined){
-                        NewArray.push(InsideArrayStates[i]);
-                    }
-                }
-                InsideArrayStates = NewArray;
-            }
-            GoUp = GoUp.get_parent();
-        }
-        return InsideArrayStates;
-    }
-
-    check_states_on_identity(state1, state2)
-    {
-        let HeightMatrix1 = state1.length;
-        let HeightMatrix2 = state2.length;
-        if (HeightMatrix1 !== HeightMatrix2){
-            return false;
-        }
-        for (let i = 0; i < HeightMatrix1; i++){
-            for(let j = 0; j < HeightMatrix1; j++) {
-                if (state1[i][j] !== state2[i][j]) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-}
-
-function create_copy_array_states(array_states, size_matrix_states) {
-    let NewArrayStates = [];
-    for(let i = 0; i < array_states.length; i++){
-        let NewState = [];
-        for(let j = 0; j < size_matrix_states; j++){
-            NewState.push(array_states[i][j].slice());
-        }
-        NewArrayStates.push(NewState);
-    }
-    return NewArrayStates;
+    // check_on_repeat(array_states)
+    // {
+    //     let GoUp = this.current.get_parent();
+    //     let EMERGENCY_EXIT = false;
+    //     //let InsideArrayStates = create_copy_array_states(array_states, 3);
+    //     let InsideArrayStates = array_states;
+    //     while(GoUp !== null && !EMERGENCY_EXIT){
+    //         let GoUpState = GoUp.get_state();
+    //         let IdentitytesIndexs = [];
+    //         for(let i = 0; i < InsideArrayStates.length; i++){
+    //             if (check_states_on_identity(GoUpState, InsideArrayStates[i])){
+    //                 IdentitytesIndexs.push(i);
+    //             }
+    //         }
+    //         if (IdentitytesIndexs.length > 0) {
+    //             let NewArray = [];
+    //             for(let i = 0; i < InsideArrayStates.length; i++){
+    //                 if (IdentitytesIndexs.find(index => index === i) === undefined){
+    //                     NewArray.push(InsideArrayStates[i]);
+    //                 }
+    //             }
+    //             InsideArrayStates = NewArray;
+    //         }
+    //         GoUp = GoUp.get_parent();
+    //     }
+    //     return InsideArrayStates;
+    // }
 }

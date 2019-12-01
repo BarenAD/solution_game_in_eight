@@ -1,14 +1,27 @@
 import React from "react";
 import "../../style/sass/MainComponent.sass";
 import InputComponent from "./InputComponent";
+import ComputingComponent from "./ComputingComponent";
+import StepGenerator from "../StepGenerator";
 
 export default class MainComponent extends React.Component
 {
     constructor(props)
     {
         super(props);
+        /*
         this.state = {
             current_page: "start_page",
+        };
+         */
+        this.state = {
+            current_page: "computing_page",
+            method: "depth",
+            input_matrix: [
+                [8,5,4],
+                [7,0,3],
+                [1,6,2]
+            ]
         };
     }
 
@@ -32,7 +45,10 @@ export default class MainComponent extends React.Component
                 }
                 {this.state.current_page === "computing_page" &&
                     <div>
-                        ВЫЧИСЛЕНИЯЯЯЯЯЯЯ!
+                        <ComputingComponent
+                            method = {this.state.method}
+                            input_matrix = {this.state.input_matrix}
+                        />
                     </div>
                 }
             </div>

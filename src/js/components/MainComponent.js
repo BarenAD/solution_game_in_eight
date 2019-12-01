@@ -17,20 +17,25 @@ export default class MainComponent extends React.Component
         // this.state = {
         //     current_page: "computing_page",
         //     method: "depth",
-        //     input_matrix: [
-        //         [1,4,2],
-        //         [3,0,5],
-        //         [6,7,8]
-        //     ]
+        //     input_matrix: [[1,2,3], [8,6,4],[7,5,0]],
+        //     expected_result: [[1,2,3],[8,0,4],[7,6,5]]
         // };
     }
 
-    handle_start(in_selected_method, in_current_matrix)
+    handle_continue(in_selected_method, in_current_matrix)
+    {
+        this.setState({
+            current_page: "selected_result_page",
+            method: in_selected_method,
+            input_matrix: in_current_matrix
+        });
+    }
+
+    handle_set_find_result(in_current_matrix)
     {
         this.setState({
             current_page: "computing_page",
-            method: in_selected_method,
-            input_matrix: in_current_matrix
+            expected_result: in_current_matrix
         });
     }
 
@@ -50,13 +55,21 @@ export default class MainComponent extends React.Component
             <div className={"MainContainer"}>
                 {this.state.current_page === "start_page" &&
                     <InputComponent
-                        handle_start={(in_selected_method, in_current_matrix) => this.handle_start(in_selected_method, in_current_matrix)}
+                        page = {this.state.current_page}
+                        handle_start={(in_selected_method, in_current_matrix) => this.handle_continue(in_selected_method, in_current_matrix)}
+                    />
+                }
+                {this.state.current_page === "selected_result_page" &&
+                    <InputComponent
+                        page = {this.state.current_page}
+                        handle_start = {(in_current_matrix) => this.handle_set_find_result(in_current_matrix)}
                     />
                 }
                 {this.state.current_page === "computing_page" &&
                         <ComputingComponent
                             method = {this.state.method}
                             input_matrix = {this.state.input_matrix}
+                            expected_result = {this.state.expected_result}
                             handle_finish = {(in_steps, in_result_tree) => {this.handle_finish(in_steps, in_result_tree)}}
                         />
                 }

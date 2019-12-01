@@ -3,10 +3,11 @@ import StepGenerator from "./StepGenerator";
 
 export default class StructureForDepth
 {
-    constructor(in_start_state, function_update_steps, function_finish)
+    constructor(in_start_state, in_expected_result, function_update_steps, function_finish)
     {
         this.function_update_steps = function_update_steps;
         this.function_finish = function_finish;
+        this.expected_result = in_expected_result;
         let ItIsOk = true;
         let HeightMatrix = in_start_state.length;
         for(let i = 0; i < HeightMatrix; i++) {
@@ -29,12 +30,9 @@ export default class StructureForDepth
     __check_congratulations(in_state)
     {
         let HeightMatrix = in_state.length;
-        let TrueStep = 0;
         for (let i = 0; i < HeightMatrix; i++){
             for(let j = 0; j < HeightMatrix; j++) {
-                if (in_state[i][j] === TrueStep) {
-                    TrueStep++;
-                } else {
+                if (in_state[i][j] !== this.expected_result[i][j]) {
                     return false;
                 }
             }

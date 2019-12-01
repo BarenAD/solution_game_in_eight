@@ -8,14 +8,25 @@ export default class InputComponent extends React.Component
     constructor(props)
     {
         super(props);
-        this.state = {
-            current_selected_Method: "depth",
-            current_temp_input_matrix: [],
-            available_values: [
-                [1,2,3],
-                [4,0,5],
-                [6,7,8]
-            ]
+        if (this.props.page === "start_page") {
+            this.state = {
+                current_selected_Method: "depth",
+                current_temp_input_matrix: [],
+                available_values: [
+                    [1, 2, 3],
+                    [4, 0, 5],
+                    [6, 7, 8]
+                ]
+            }
+        } else if (this.props.page === "selected_result_page") {
+            this.state = {
+                current_temp_input_matrix: [0,1,2,3,4,5,6,7,8],
+                available_values: [
+                    [1, 2, 3],
+                    [4, 0, 5],
+                    [6, 7, 8]
+                ]
+            }
         }
     }
 
@@ -77,7 +88,11 @@ export default class InputComponent extends React.Component
             alert("Задана не вся матрица!");
         } else {
             let ValidateMatrix = this.validate_matrix(this.state.current_temp_input_matrix);
-            this.props.handle_start(this.state.current_selected_Method, ValidateMatrix);
+            if (this.props.page === "start_page") {
+                this.props.handle_start(this.state.current_selected_Method, ValidateMatrix);
+            } else if (this.props.page === "selected_result_page") {
+                this.props.handle_start(ValidateMatrix);
+            }
         }
     }
 
@@ -99,7 +114,9 @@ export default class InputComponent extends React.Component
     {
         return (
             <div className={"InputMainContainer"}>
-                <h1>Добро пожаловать в решатор игры в 8!</h1>
+                {this.props.page === "start_page" &&
+                    <h1>Добро пожаловать в решатор игры в 8!</h1>
+                }
                 <div className={"InsideMainContainer"}>
                     <div className={"InsideSecondaryContainer"}>
                         <h2>Задайте матрицу!</h2>
@@ -109,16 +126,33 @@ export default class InputComponent extends React.Component
                             handle_add_value_in_matrix = {(value) => {this.handle_add_value_in_current_temp_input_matrix(value)}}
                         />
                     </div>
-                    <div className={"InsideSecondaryContainer"}>
-                        <h2>Выберите метод поиска!</h2>
-                        {this.return_metods()}
-                        <button
-                            className={"StartButton"}
-                            onClick={() => {this.handle_start()}}
-                        >
-                            СТАРТ
-                        </button>
-                    </div>
+                    {this.props.page === "start_page" &&
+                        <div className={"InsideSecondaryContainer"}>
+                            <h2>Выберите метод поиска!</h2>
+                            {this.return_metods()}
+                            <button
+                                className={"StartButton"}
+                                onClick={() => {
+                                    this.handle_start()
+                                }}
+                            >
+                                ДАЛЕЕ
+                            </button>
+                        </div>
+                    }
+                    {this.props.page === "selected_result_page" &&
+                        <div className={"InsideSecondaryContainer"}>
+                            <h2>Задайте искомую комбинацию!</h2>
+                            <button
+                                className={"StartButton"}
+                                onClick={() => {
+                                    this.handle_start()
+                                }}
+                            >
+                                СТАРТ
+                            </button>
+                        </div>
+                    }
                     <div className={"InsideSecondaryContainer"}>
                         <h2>Всё верно?</h2>
                         <PaintCurrentTempInputMatrix

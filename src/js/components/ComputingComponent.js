@@ -1,4 +1,5 @@
 import React from "react";
+import StructureForDepth from "../StructureForDepth";
 import "../../style/sass/ComputingComponent.sass";
 
 export default class ComputingComponent extends React.Component
@@ -8,6 +9,18 @@ export default class ComputingComponent extends React.Component
         super(props);
         this.state = {
             analyzed_step: 0
+        }
+    }
+
+    componentDidMount()
+    {
+        if (this.props.method === "depth"){
+            this.ComputingForDepth = new StructureForDepth(
+                this.props.input_matrix,
+                (in_new_step) => {this.update_step(in_new_step)},
+                (in_steps, in_result_tree) => {this.props.handle_finish(in_steps, in_result_tree)},
+            );
+            setTimeout(() => {this.ComputingForDepth.find_solution()}, 2000,);
         }
     }
 

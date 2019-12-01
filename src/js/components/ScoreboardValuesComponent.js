@@ -20,9 +20,13 @@ export default class ScoreboardValuesComponent extends React.Component {
                             {row.map(value => {
                                 let DisactiveButton = false;
                                 let ClassListButton = "one_block";
+                                let PrintValue = value;
                                 if (this.props.current_temp_input_matrix.find(find_value => find_value === value) !== undefined) {
                                     DisactiveButton = true;
                                     ClassListButton += " one_block_disabled";
+                                }
+                                if (PrintValue === 0) {
+                                    PrintValue = "";
                                 }
                                 return (
                                     <button
@@ -33,7 +37,7 @@ export default class ScoreboardValuesComponent extends React.Component {
                                             this.props.handle_add_value_in_matrix(value)
                                         }}
                                     >
-                                        {value}
+                                        {PrintValue}
                                     </button>
                                 )
                             })}

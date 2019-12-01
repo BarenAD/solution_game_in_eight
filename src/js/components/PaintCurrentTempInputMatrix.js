@@ -24,11 +24,16 @@ export default class PaintCurrentTempInputMatrix extends React.Component {
                                 let DisactiveButton = false;
                                 let ClassListButton = "one_block";
                                 let ValueMatrix = "";
+                                let PrintValueMatrix = "";
                                 if (this.props.current_temp_input_matrix[IndexMatrix] === undefined || this.props.current_temp_input_matrix[IndexMatrix] === null) {
                                     DisactiveButton = true;
                                     ClassListButton += " one_block_empty";
                                 } else {
                                     ValueMatrix = this.props.current_temp_input_matrix[IndexMatrix];
+                                    PrintValueMatrix = ValueMatrix;
+                                    if (PrintValueMatrix === 0) {
+                                        PrintValueMatrix = "";
+                                    }
                                 }
                                 return (
                                     <button
@@ -37,7 +42,7 @@ export default class PaintCurrentTempInputMatrix extends React.Component {
                                         disabled={DisactiveButton}
                                         onClick={() => {this.props.handle_delete_value_in_matrix(ValueMatrix)}}
                                     >
-                                        {ValueMatrix}
+                                        {PrintValueMatrix}
                                     </button>
                                 )
                             })}

@@ -1,0 +1,33 @@
+.current_temp_input_matrix_board
+  display: flex
+  flex-direction: column
+  border: 2px solid black
+  border-radius: 15px
+  overflow: hidden
+
+  .one_row
+    display: flex
+    flex-direction: row
+    justify-content: space-around
+
+    .one_block
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 50px
+      height: 50px
+      margin: 10px
+      border: 2px solid black
+      border-radius: 5px
+      cursor: pointer
+      outline: none
+
+      &:hover
+        background: red
+
+    .one_block_empty
+      border: 2px dashed black
+      background: none
+
+      &:hover
+        background: none

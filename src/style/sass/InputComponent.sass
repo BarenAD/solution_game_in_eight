@@ -1,0 +1,82 @@
+.InputMainContainer
+  display: flex
+  width: 100%
+  height: 100%
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  overflow: hidden
+
+  .InsideMainContainer
+    display: flex
+    flex-direction: row
+    justify-content: space-around
+    align-items: center
+    width: 80%
+    height: max-content
+    outline: 5px solid black
+
+    .InsideSecondaryContainer
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      margin: 20px
+
+      .StartButton
+        display: flex
+        width: max-content
+        height: max-content
+        flex-direction: row
+        justify-content: center
+        align-items: center
+        font-size: 32px
+        margin-top: 50px
+        background: green
+        outline: none
+
+      .SwitchMethod
+        display: flex
+        width: max-content
+        height: max-content
+        flex-direction: row
+        justify-content: center
+        align-items: center
+        border: 2px solid black
+        border-radius: 10px
+        overflow: hidden
+
+        .Method
+          display: flex
+          width: 100px
+          flex-direction: row
+          justify-content: center
+          align-items: center
+          padding: 15px
+          border: none
+          outline: none
+          cursor: pointer
+
+          &:hover
+            background: lightskyblue
+
+        .Method-active
+          background: greenyellow
+
+  .performed
+    .group_title
+      display: inline-block
+      margin-left: 20px
+      color: green
+
+    a
+      display: block
+      text-decoration: none
+      color: black
+      outline: 4px solid lightslategrey
+      text-align: center
+      padding: 5px 0
+      margin: 15px 0
+
+    a:hover
+      background: lightgreen

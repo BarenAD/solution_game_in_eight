@@ -64,7 +64,7 @@ export default class ComputingComponent extends React.Component
     {
         return (
             <div className={"MainContainerComputing"}>
-                <h1>Проанализированно узлов: <div className={"CountAnalyzedNodes"}>{this.state.analyzed_step}</div></h1>
+                <div className={"HMaintitleComputing"}>Проанализированно узлов: <div className={"CountAnalyzedNodes"}>{this.state.analyzed_step}</div></div>
                 <div className={"ContainerComputingGIF"}>
                     {this.return_gif()}
                 </div>

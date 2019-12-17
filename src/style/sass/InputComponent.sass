@@ -1,7 +1,7 @@
 .InputMainContainer
   display: flex
-  width: 100%
-  height: 100%
+  width: 100vmin
+  height: 100vmin
   flex-direction: column
   justify-content: center
   align-items: center
@@ -12,7 +12,7 @@
     flex-direction: row
     justify-content: space-around
     align-items: center
-    width: 80%
+    width: calc(100vmin - 10px)
     height: max-content
     outline: 5px solid black
 
@@ -21,70 +21,111 @@
       flex-direction: column
       justify-content: center
       align-items: center
-      margin: 20px
+      overflow: hidden
+
+    .Htitle
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 39vmin
+      height: 2vmin
+      overflow: hidden
+      font-weight: bold
+      font-size: 2vmin
+      text-align: center
+
+    .title-selected-attr
+      width: 20vmin
+      height: 5vmin
+      font-size: 2vmin
+
+    .Matrixs
+      width: 39vmin
+      height: 39vmin
+
+    .SelectedAttributes
+      width: 20vmin
+      height: max-content
 
       .StartButton
         display: flex
-        width: max-content
-        height: max-content
+        width: 15vmin
+        height: 5vmin
         flex-direction: row
         justify-content: center
         align-items: center
-        font-size: 32px
-        margin-top: 30px
-        margin-bottom: 30px
+        font-size: 3.5vmin
+        margin-top: 1vmin
+        margin-bottom: 1vmin
         background: green
         outline: none
 
+      .InputSizeMatrixContainer
+        display: flex
+        flex-direction: row
+        justify-content: center
+        align-items: center
+        margin-top: 1vmin
+        overflow: hidden
+        font-size: 3vmin
+
+        .InputSizeMatrix
+          display: flex
+          text-align: center
+          width: 5vmin
+          height: 5vmin
+          outline: none
+          margin-right: 5px
+          border: 2px solid black
+          overflow: hidden
+          font-size: 3vmin
+
       .InputMaxNodesForAnalyse
         display: flex
-        margin-top: 30px
-        width: 150px
-        height: 50px
+        margin-top: 10px
+        width: 15vmin
+        height: 5vmin
         outline: none
         border-radius: 15px
         border: 2px solid black
+        text-align: center
+        font-size: 3vmin
 
       .SwitchMethod
         display: flex
-        width: max-content
-        height: max-content
+        width: 18vmin
+        height: 5vmin
         flex-direction: row
         justify-content: center
         align-items: center
         border: 2px solid black
         border-radius: 10px
         overflow: hidden
-        margin-top: 20px
+        margin-top: 1vmin
 
         .Method
           display: flex
-          width: 100px
+          width: 9vmin
+          height: 5vmin
           flex-direction: row
           justify-content: center
           align-items: center
-          padding: 15px
           border: none
           outline: none
           cursor: pointer
+          font-size: 1.5vmin
+          font-weight: bold
 
         .Method-active
           background: greenyellow
 
-  .performed
-    .group_title
-      display: inline-block
-      margin-left: 20px
-      color: green
-
-    a
-      display: block
-      text-decoration: none
-      color: black
-      outline: 4px solid lightslategrey
-      text-align: center
-      padding: 5px 0
-      margin: 15px 0
-
-    a:hover
-      background: lightgreen
+  .HMaintitle
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 100vmin
+    height: 10vmin
+    overflow: hidden
+    font-weight: bold
+    font-size: 4vmin
+    text-align: center

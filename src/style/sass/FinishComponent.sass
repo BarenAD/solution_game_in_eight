@@ -1,6 +1,6 @@
 .FinishMainContainer
   display: flex
-  width: 90%
+  width: 90vmin
   height: max-content
   flex-direction: column
   align-items: center
@@ -8,39 +8,68 @@
   border-radius: 15px
   overflow: hidden
 
+  .ButtonBackToMain
+    width: 50vmin
+    height: 8vmin
+    font-size: 3.5vmin
+    margin-top: 1vmin
+    margin-bottom: 1vmin
+    background: lightgray
+    outline: none
+    text-align: center
+    font-weight: bold
+
   h3
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
     width: max-content
+    height: 3vmin
+    font-weight: bold
+    font-size: 3vmin
+
+    p
+      margin-left: 2vmin
+      color: green
 
   .RowStatesResults
     display: flex
-    width: 90%
+    width: 85vmin
     flex-direction: row
     align-items: center
-    height: max-content
+    height: 50vmin
     overflow-x: scroll
     outline: 2px solid black
     background: lightslategrey
-    margin: 20px
 
-    .StateResultBoard
+    .StateResultBoardContainer
       display: flex
-      flex-direction: column
-      border: 2px solid black
-      border-radius: 15px
-      background: white
-      margin: 20px
+      justify-content: center
+      align-items: center
+      width: 40vmin
+      height: 40vmin
+      margin-left: 20px
 
-      .StateResultOneRow
+      .StateResultBoard
         display: flex
-        flex-direction: row
+        flex-direction: column
+        border: 2px solid black
+        border-radius: 5px
+        background: white
+        width: 35vmin
+        height: 35vmin
 
-        .StateResultOneBlock
+        .StateResultOneRow
           display: flex
-          justify-content: center
+          flex-direction: row
+          justify-content: space-around
           align-items: center
-          width: 50px
-          height: 50px
-          margin: 10px
-          border: 2px solid black
-          border-radius: 5px
-          outline: none
+
+          .StateResultOneBlock
+            display: flex
+            justify-content: center
+            align-items: center
+            border: 2px solid black
+            border-radius: 5px
+            outline: none

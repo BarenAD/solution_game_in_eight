@@ -1,15 +1,34 @@
 .MainContainerComputing
+  display: flex
+  width: 90vmin
+  height: max-content
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  overflow: hidden
   outline: 4px solid black
-  padding: 30px
 
-  .CountAnalyzedNodes
-    display: inline-block
-    margin-left: 10px
-    color: green
+  .HMaintitleComputing
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 100vmin
+    height: 10vmin
+    overflow: hidden
+    font-weight: bold
+    font-size: 4vmin
+    text-align: center
+
+    .CountAnalyzedNodes
+      display: inline-block
+      margin-left: 1vmin
+      color: green
 
   .ContainerComputingGIF
-    width: max-content
-    height: max-content
+    width: 90%
+    height: 50vmin
 
     .ComputingGIF
-      height: 300px
+      width: 80vmin
+      height: 50vmin
+      background-size: cover

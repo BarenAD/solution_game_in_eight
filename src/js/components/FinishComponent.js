@@ -23,14 +23,24 @@ export default class FinishComponent extends React.Component {
         let IDForRowKey = 0;
         let IDForValueKey = 0;
         let ArrayResultStates = this.create_result();
+        let SizeMatrix = 0;
+        if (ArrayResultStates.length > 0){
+            SizeMatrix = ArrayResultStates[0].length;
+        }
         return (
             <div className={"FinishMainContainer"}>
+                <button
+                    className={"ButtonBackToMain"}
+                    onClick={() => {this.props.go_back_to_main()}}
+                >
+                    вернуться на главную
+                </button>
                 {this.props.computing_tree === "step_restriction" &&
                     <h3 style={{color: "red"}}>Решение не найдено за отведённое количество узлов!</h3>
                 }
-                <h3>Метод:   {this.props.method}</h3>
-                <h3>Узлов создано при анализе:   {this.props.computing_steps}</h3>
-                <h3>Число шагов до искомой комбинации:   {ArrayResultStates.length-1}</h3>
+                <h3>Метод:   <p>{this.props.method}</p></h3>
+                <h3>Узлов создано при анализе:   <p>{this.props.computing_steps}</p></h3>
+                <h3>Число шагов до искомой комбинации:   <p>{ArrayResultStates.length-1}</p></h3>
                 {this.props.method === "width" &&
                     <h3>Глубина: {this.props.computing_depth}</h3>
                 }
@@ -40,33 +50,42 @@ export default class FinishComponent extends React.Component {
                         return (
                             <div
                                 key={"BoardFinishStateID::" + IDForBoardKey}
-                                className={"StateResultBoard"}
+                                className={"StateResultBoardContainer"}
                             >
-                                {state.map(row => {
-                                    IDForRowKey++;
-                                    return (
-                                        <div
-                                            key={"RowFinishStateID::" + IDForRowKey}
-                                            className={"StateResultOneRow"}
-                                        >
-                                            {row.map(value => {
-                                                IDForValueKey++;
-                                                let PrintValue = value;
-                                                if (PrintValue === 0) {
-                                                    PrintValue = "";
-                                                }
-                                                return (
-                                                    <div
-                                                        key={"ValueFinishStateID::" + IDForValueKey}
-                                                        className={"StateResultOneBlock"}
-                                                    >
-                                                        {PrintValue}
-                                                    </div>
-                                                )
-                                            })}
-                                        </div>
-                                    )
-                                })}
+                                <div
+                                    className={"StateResultBoard"}
+                                >
+                                    {state.map(row => {
+                                        IDForRowKey++;
+                                        return (
+                                            <div
+                                                key={"RowFinishStateID::" + IDForRowKey}
+                                                className={"StateResultOneRow"}
+                                                style={{height: (35/SizeMatrix) + "vmin"}}
+                                            >
+                                                {row.map(value => {
+                                                    IDForValueKey++;
+                                                    let PrintValue = value;
+                                                    if (PrintValue === 0) {
+                                                        PrintValue = "";
+                                                    }
+                                                    return (
+                                                        <div
+                                                            key={"ValueFinishStateID::" + IDForValueKey}
+                                                            className={"StateResultOneBlock"}
+                                                            style={{
+                                                                width: (30/SizeMatrix) + "vmin",
+                                                                height: (30/SizeMatrix) + "vmin"
+                                                            }}
+                                                        >
+                                                            {PrintValue}
+                                                        </div>
+                                                    )
+                                                })}
+                                            </div>
+                                        )
+                                    })}
+                                </div>
                             </div>
                         )
                     })}

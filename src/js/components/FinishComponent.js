@@ -61,21 +61,23 @@ export default class FinishComponent extends React.Component {
                                             <div
                                                 key={"RowFinishStateID::" + IDForRowKey}
                                                 className={"StateResultOneRow"}
-                                                style={{height: (35/SizeMatrix) + "vmin"}}
+                                                style={{height: (100/SizeMatrix) + "%"}}
                                             >
                                                 {row.map(value => {
                                                     IDForValueKey++;
                                                     let PrintValue = value;
+                                                    let AddClassName = "";
                                                     if (PrintValue === 0) {
                                                         PrintValue = "";
+                                                        AddClassName = " StateResultOneBlock-null";
                                                     }
                                                     return (
                                                         <div
                                                             key={"ValueFinishStateID::" + IDForValueKey}
-                                                            className={"StateResultOneBlock"}
+                                                            className={"StateResultOneBlock" + AddClassName}
                                                             style={{
-                                                                width: (30/SizeMatrix) + "vmin",
-                                                                height: (30/SizeMatrix) + "vmin"
+                                                                width: (90/SizeMatrix) + "%",
+                                                                height: "90%"
                                                             }}
                                                         >
                                                             {PrintValue}

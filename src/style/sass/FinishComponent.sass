@@ -1,7 +1,9 @@
 .FinishMainContainer
   display: flex
-  width: 90vmin
+  width: max-content
+  max-width: 98%
   height: max-content
+  max-height: 98%
   flex-direction: column
   align-items: center
   border: 2px solid black
@@ -13,7 +15,7 @@
     height: 8vmin
     font-size: 3.5vmin
     margin-top: 1vmin
-    margin-bottom: 1vmin
+    margin-bottom: 2vmin
     background: lightgray
     outline: none
     text-align: center
@@ -28,6 +30,7 @@
     height: 3vmin
     font-weight: bold
     font-size: 3vmin
+    margin: 0 0 2vmin 0
 
     p
       margin-left: 2vmin
@@ -35,10 +38,11 @@
 
   .RowStatesResults
     display: flex
-    width: 85vmin
+    width: max-content
+    max-width: 100%
     flex-direction: row
     align-items: center
-    height: 50vmin
+    height: 70vmin
     overflow-x: scroll
     outline: 2px solid black
     background: lightslategrey
@@ -47,29 +51,35 @@
       display: flex
       justify-content: center
       align-items: center
-      width: 40vmin
-      height: 40vmin
-      margin-left: 20px
+      width: 70vmin
+      height: calc(70vmin - 50px)
+      margin-left: 10vmin
 
       .StateResultBoard
         display: flex
         flex-direction: column
         border: 2px solid black
         border-radius: 5px
-        background: white
-        width: 35vmin
-        height: 35vmin
+        background: lightgrey
+        width: calc(70vmin - 50px)
+        height: calc(70vmin - 50px)
 
         .StateResultOneRow
           display: flex
           flex-direction: row
           justify-content: space-around
           align-items: center
+          font-weight: bold
+          font-size: 5vmin
 
-          .StateResultOneBlock
+        .StateResultOneBlock
             display: flex
             justify-content: center
             align-items: center
             border: 2px solid black
             border-radius: 5px
             outline: none
+            background: white
+
+        .StateResultOneBlock-null
+          background: green

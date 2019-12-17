@@ -7,11 +7,11 @@ module.exports = async function (shipit) {
     shipit.initConfig({
         default: {
             workspace: path.resolve(__dirname, './build'),
-            shallowClone: false,
+            shallowClone: false
         },
         staging: {
-            servers: 'deployer@62.113.115.145',
-            deployTo: PathInServer,
+            servers: 'deployer@barenad.info',
+            deployTo: path.join(PathInServer),
             deleteOnRollback: true
         }
     });

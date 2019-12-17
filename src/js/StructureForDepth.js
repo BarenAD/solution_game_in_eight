@@ -27,6 +27,8 @@ export default class StructureForDepth
             for(let i = 0; i < ChildrensStates.length; i++) {
                 this.ROOT.add_children(new Node(this.current, ChildrensStates[i]));
             }
+            this.STOP_MACHINE = false;
+            this.EMERGENCY_EXIT = false;
         }
     }
 
@@ -45,75 +47,40 @@ export default class StructureForDepth
 
     find_solution()
     {
-        let STOP_MACHINE = false;
-        let EMERGENCY_EXIT = false;
-        while (!STOP_MACHINE && this.steps < this.current_max_nodes_for_analyse && !this.__check_congratulations(this.current.get_state())){
-            let amount_ways = this.current.get_amount_childrens();
-            if (amount_ways < 1){
-                let NewChildrensStates = StepGenerator(this.current.get_state());
-                this.steps += NewChildrensStates.length;
-                NewChildrensStates = check_on_repeat_to_up_branch(this.current, NewChildrensStates);
-                for(let i = 0; i < NewChildrensStates.length; i++) {
-                    this.current.add_children(new Node(this.current, NewChildrensStates[i]));
-                }
+        let amount_ways = this.current.get_amount_childrens();
+        if (amount_ways < 1){
+            let NewChildrensStates = StepGenerator(this.current.get_state());
+            this.steps += NewChildrensStates.length;
+            NewChildrensStates = check_on_repeat_to_up_branch(this.current, NewChildrensStates);
+            for(let i = 0; i < NewChildrensStates.length; i++) {
+                this.current.add_children(new Node(this.current, NewChildrensStates[i]));
             }
-            //**********************************************************************
-            let next_way = this.current.get_first_children();
-            if (next_way === null) {
-                if (this.current.get_parent() !== null) {
-                    this.current = this.current.get_parent();
-                } else {
-                    STOP_MACHINE = true;
-                    EMERGENCY_EXIT = true;
-                }
-            } else {
-                this.current = next_way;
-                if (this.__check_congratulations(this.current.get_state())) {
-                    STOP_MACHINE = true;
-                    // this.Find_Solution.push(this.current);
-                }
-            }
-            this.function_update_steps(this.steps);
         }
-        if(this.steps >= this.current_max_nodes_for_analyse) {
-            this.function_finish(this.steps, "step_restriction", null);
-        } else if (EMERGENCY_EXIT) {
-            // console.log("Решение не найдено :[");
-            // console.log(this.steps);
-            this.function_finish(this.steps, null, null);
-            //setTimeout(() => {this.function_finish(this.steps, null)}, 2000,);
+        let next_way = this.current.get_first_children();
+        if (next_way === null) {
+            if (this.current.get_parent() !== null) {
+                this.current = this.current.get_parent();
+            } else {
+                this.STOP_MACHINE = true;
+                this.EMERGENCY_EXIT = true;
+            }
         } else {
-            // console.log(this.steps);
-            this.function_finish(this.steps, this.current, null);
-            //setTimeout(() => {this.function_finish(this.steps, this.current)}, 2000,);
+            this.current = next_way;
+            if (this.__check_congratulations(this.current.get_state())) {
+                this.STOP_MACHINE = true;
+            }
+        }
+        this.function_update_steps(this.steps);
+        if (this.STOP_MACHINE || (this.steps >= this.current_max_nodes_for_analyse) || this.__check_congratulations(this.current.get_state())){
+            if(this.steps >= this.current_max_nodes_for_analyse) {
+                this.function_finish(this.steps, "step_restriction", null);
+            } else if (this.EMERGENCY_EXIT) {
+                this.function_finish(this.steps, null, null);
+            } else {
+                this.function_finish(this.steps, this.current, null);
+            }
+        } else {
+            setTimeout(() => {this.find_solution()}, 1);
         }
     }
-
-    // check_on_repeat(array_states)
-    // {
-    //     let GoUp = this.current.get_parent();
-    //     let EMERGENCY_EXIT = false;
-    //     //let InsideArrayStates = create_copy_array_states(array_states, 3);
-    //     let InsideArrayStates = array_states;
-    //     while(GoUp !== null && !EMERGENCY_EXIT){
-    //         let GoUpState = GoUp.get_state();
-    //         let IdentitytesIndexs = [];
-    //         for(let i = 0; i < InsideArrayStates.length; i++){
-    //             if (check_states_on_identity(GoUpState, InsideArrayStates[i])){
-    //                 IdentitytesIndexs.push(i);
-    //             }
-    //         }
-    //         if (IdentitytesIndexs.length > 0) {
-    //             let NewArray = [];
-    //             for(let i = 0; i < InsideArrayStates.length; i++){
-    //                 if (IdentitytesIndexs.find(index => index === i) === undefined){
-    //                     NewArray.push(InsideArrayStates[i]);
-    //                 }
-    //             }
-    //             InsideArrayStates = NewArray;
-    //         }
-    //         GoUp = GoUp.get_parent();
-    //     }
-    //     return InsideArrayStates;
-    // }
 }

@@ -19,7 +19,10 @@ export default class PaintCurrentTempInputMatrix extends React.Component {
                         <div
                             key={"KeyID_rows_in_current_temp_input_matrix_board_values::" + rows}
                             className={"one_row"}
-                            style={{height: (35/SizeMatrix) + "vmin"}}
+                            style={{
+                                height: (82/SizeMatrix) + "vmin",
+                                maxHeight: (38/SizeMatrix) + "vw"
+                            }}
                         >
                             {row.map(value => {
                                 IndexMatrix++;
@@ -43,8 +46,10 @@ export default class PaintCurrentTempInputMatrix extends React.Component {
                                         className={ClassListButton}
                                         disabled={DisactiveButton}
                                         style={{
-                                            width: (30/SizeMatrix) + "vmin",
-                                            height: (30/SizeMatrix) + "vmin"
+                                            width: (77/SizeMatrix) + "vmin",
+                                            maxWidth: (36/SizeMatrix) + "vw",
+                                            height: (77/SizeMatrix) + "vmin",
+                                            maxHeight: (36/SizeMatrix) + "vw"
                                         }}
                                         onClick={() => {this.props.handle_delete_value_in_matrix(ValueMatrix)}}
                                     >

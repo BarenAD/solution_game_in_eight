@@ -55,7 +55,7 @@ export default class InputComponent extends React.Component
             clearTimeout(this.ChangeSizeTimer);
         }
         this.ChangeSizeTimer = setTimeout(() => {
-            if (parseInt(string_new_size_matrix) > 0) {
+            if (parseInt(string_new_size_matrix) > 1) {
                 this.handle_apply_size_matrix(parseInt(string_new_size_matrix));
             }
         }, 1000);

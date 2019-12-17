@@ -17,7 +17,10 @@ export default class ScoreboardValuesComponent extends React.Component {
                         <div
                             key={"KeyID_rows_in_scoreboard_values::" + rows}
                             className={"one_row"}
-                            style={{height: (35/SizeMatrix) + "vmin"}}
+                            style={{
+                                height: (82/SizeMatrix) + "vmin",
+                                maxHeight: (38/SizeMatrix) + "vw"
+                            }}
                         >
                             {row.map(value => {
                                 let DisactiveButton = false;
@@ -36,8 +39,10 @@ export default class ScoreboardValuesComponent extends React.Component {
                                         className={ClassListButton}
                                         disabled={DisactiveButton}
                                         style={{
-                                            width: (30/SizeMatrix) + "vmin",
-                                            height: (30/SizeMatrix) + "vmin"
+                                            width: (77/SizeMatrix) + "vmin",
+                                            maxWidth: (36/SizeMatrix) + "vw",
+                                            height: (77/SizeMatrix) + "vmin",
+                                            maxHeight: (36/SizeMatrix) + "vw"
                                         }}
                                         onClick={() => {
                                             this.props.handle_add_value_in_matrix(value)

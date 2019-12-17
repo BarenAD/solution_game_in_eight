@@ -80,7 +80,7 @@ export default class StructureForDepth
                 this.function_finish(this.steps, this.current, null);
             }
         } else {
-            setTimeout(() => {this.find_solution()}, 1);
+            setTimeout(() => {this.find_solution()}, 0.1);
         }
     }
 }

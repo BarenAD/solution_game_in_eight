@@ -86,7 +86,7 @@ export default class StructureForWidth
             this.function_update_steps(this.steps);
             setTimeout(() => {this.find_solution()}, 1);
         }
-        if(this.steps > this.current_max_nodes_for_analyse){
+        if(this.steps >= this.current_max_nodes_for_analyse){
             this.function_finish(this.steps, "step_restriction", this.depth);
         }
     }

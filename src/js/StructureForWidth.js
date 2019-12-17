@@ -64,9 +64,12 @@ export default class StructureForWidth
             this.depth++;
             let NewCurrentArrayNodesChildrens = [];
             for (let i = 0; i < NewCurrentArrayNodes.length; i++) {
-                let NewChildrensStates = StepGenerator(NewCurrentArrayNodes[i].get_state());
-                this.steps += NewChildrensStates.length;
-                NewChildrensStates = check_on_repeat_to_up_branch(NewCurrentArrayNodes[i], NewChildrensStates);
+                let NewChildrensStates = [];
+                if(this.steps < this.current_max_nodes_for_analyse) {
+                    NewChildrensStates = StepGenerator(NewCurrentArrayNodes[i].get_state());
+                    this.steps += NewChildrensStates.length;
+                    NewChildrensStates = check_on_repeat_to_up_branch(NewCurrentArrayNodes[i], NewChildrensStates);
+                }
                 NewCurrentArrayNodesChildrens.push(NewChildrensStates);
             }
             NewCurrentArrayNodesChildrens = check_on_repeat_to_width_childrens(NewCurrentArrayNodesChildrens);
@@ -81,7 +84,7 @@ export default class StructureForWidth
             }
             this.current_array_nodes = NewCurrentArrayNodes;
             this.function_update_steps(this.steps);
-            setTimeout(() => {this.find_solution()}, 100,);
+            setTimeout(() => {this.find_solution()}, 1);
         }
         if(this.steps > this.current_max_nodes_for_analyse){
             this.function_finish(this.steps, "step_restriction", this.depth);

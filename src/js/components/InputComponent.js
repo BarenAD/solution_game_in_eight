@@ -45,8 +45,7 @@ export default class InputComponent extends React.Component
             ResultMatrix.push(temp_array);
         }
         this.setState({
-            available_values: ResultMatrix,
-            current_temp_input_matrix: []
+            available_values: ResultMatrix
         });
     }
 
@@ -67,6 +66,7 @@ export default class InputComponent extends React.Component
         delete this.ChangeSizeTimer;
         this.setState({
             size_matrix: new_size_matrix,
+            current_temp_input_matrix: []
         });
         this.generated_available_values(new_size_matrix);
     }

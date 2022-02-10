@@ -30,7 +30,7 @@
     ]
   },
   "devDependencies": {
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "shipit-cli": "^5.1.0",
     "shipit-deploy": "^5.1.0"
   }
